@@ -1,11 +1,13 @@
 package com.care.root.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.care.root.dto.SearchMovieDto;
 
@@ -23,5 +25,11 @@ public interface MovieSearchDao {
 	@ResultMap("searchMovieDto")	//results로 지정해놓은 searchMovieDto 값을 가져옴 
 	@Select("select * from movie_playing where movie_id = #{movieId}")
 	public SearchMovieDto getMovieInfo(String movieID);
+	
+	 @Select("select count from movie_playing where movie_id=#{movieId}")
+	 public Integer getCount(Integer movieId);
+	 
+	 @Update("update movie_playing set count = count - #{count} where movie_id= #{movieId}")
+	 public void subCount(Map map);
 }
                               
